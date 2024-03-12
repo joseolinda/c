@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
-void imprimir_submatriz(int **matriz, int inicioLinha, int inicioColuna, int fimLinha, int fimColuna) {
+int imprimir_submatriz(int **matriz, int inicioLinha, int inicioColuna, int fimLinha, int fimColuna) {
     for (int i = inicioLinha; i < fimLinha; i++) {
         for (int j = inicioColuna; j < fimColuna; j++) {
             printf("%d ", matriz[i][j]);
@@ -49,13 +49,18 @@ int main() {
                 for (int fimColuna = inicioColuna + 2; fimColuna <= C; fimColuna++) {
                     // Extrair e verificar as submatriz
                     imprimir_submatriz(p_matriz, inicioLinha, inicioColuna, fimLinha, fimColuna);
-                    int dp = p_matriz[inicioLinha][inicioColuna] + p_matriz[fimLinha][fimLinha];
-                    int ds = p_matriz[inicioLinha][fimColuna] + p_matriz[fimLinha][inicioColuna];
-                    printf("DP: %d + %d = %d   DS: %d + %d = %d\n\n", p_matriz[inicioLinha][inicioColuna], p_matriz[fimLinha][fimLinha], dp, p_matriz[inicioLinha][fimColuna], p_matriz[fimLinha][inicioColuna], ds);
+                    int e00 = p_matriz[inicioLinha][inicioColuna];
+                    int eLC = p_matriz[fimLinha-1][fimColuna-1];
+                    int eL0 = p_matriz[fimLinha-1][inicioColuna];
+                    int e0C = p_matriz[inicioLinha][fimColuna-1];
+                    
+                    int dp = e00 + eLC;
+                    int ds = eL0 + e0C;
+                    printf("DP: %d + %d = %d   DS: %d + %d = %d\n\n", e00, eLC, dp, eL0, e0C, ds);
                     int dimensao = fimLinha * fimColuna;
                     // int super = p_matriz[inicioLinha][inicioColuna] + matriz[fimLinha][fimColuna] <= matriz[inicioLinha][fimColuna] + matriz[fimLinha][inicioColuna];
                     if ( dp <= ds ) {
-                    	if (maior < dimensao) maior = dimensao;
+                    	if (maior < dimensao && dimensao < L*C)  maior = dimensao;
                     	printf("Essa submatriz é superlegal.\n\n");
 					} else {
 						totalmente_super_legal = 0;
