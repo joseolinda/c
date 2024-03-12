@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <locale.h>
 
 void imprimir_submatriz(int **matriz, int inicioLinha, int inicioColuna, int fimLinha, int fimColuna) {
@@ -50,7 +51,7 @@ int main() {
                     imprimir_submatriz(p_matriz, inicioLinha, inicioColuna, fimLinha, fimColuna);
                     int dp = p_matriz[inicioLinha][inicioColuna] + p_matriz[fimLinha][fimLinha];
                     int ds = p_matriz[inicioLinha][fimColuna] + p_matriz[fimLinha][inicioColuna];
-                    //printf("DP: %d + %d = %d   DS: %d + %d = %d\n\n", dp, p_matriz[inicioLinha][inicioColuna], p_matriz[fimLinha][fimLinha], ds, p_matriz[inicioLinha][fimColuna], p_matriz[fimLinha][inicioColuna]);
+                    printf("DP: %d + %d = %d   DS: %d + %d = %d\n\n", p_matriz[inicioLinha][inicioColuna], p_matriz[fimLinha][fimLinha], dp, p_matriz[inicioLinha][fimColuna], p_matriz[fimLinha][inicioColuna], ds);
                     int dimensao = fimLinha * fimColuna;
                     // int super = p_matriz[inicioLinha][inicioColuna] + matriz[fimLinha][fimColuna] <= matriz[inicioLinha][fimColuna] + matriz[fimLinha][inicioColuna];
                     if ( dp <= ds ) {
@@ -71,6 +72,8 @@ int main() {
 
     printf("\n\n");
     imprimir_submatriz(p_matriz, 0, 0, 3, 3);
+    
+    free(p_matriz);
 
     return 0;
 }
